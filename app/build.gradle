@@ -36,7 +36,7 @@ dependencies {
     ext.retrofitVersion = "2.2.0"
     ext.okhttpVersion = "3.7.0"
     ext.supportLib = "26.1.0"
-    ext.archComp = "1.0.0"
+    ext.archComp = "1.0.0-alpha9"
     ext.anko_version = "0.10.1"
 
 
