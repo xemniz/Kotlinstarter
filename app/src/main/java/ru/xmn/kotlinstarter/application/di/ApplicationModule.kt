@@ -4,9 +4,10 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import ru.xmn.kotlinstarter.application.App
+import ru.xmn.kotlinstarter.screens.AbstractComponent
 import javax.inject.Singleton
 
-@Module(subcomponents = arrayOf())
+@Module(subcomponents = arrayOf(AbstractComponent::class))
 class ApplicationModule(private val app: App) {
     @Provides
     @Singleton

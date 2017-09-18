@@ -4,7 +4,6 @@ import android.content.res.Resources
 import android.graphics.Rect
 import android.support.v4.view.ViewCompat
 import android.view.View
-import kotlinx.android.synthetic.main.pub_sheet.view.*
 
 fun View.pairSharedTransition(): android.support.v4.util.Pair<View, String> {
     return android.support.v4.util.Pair<View, String>(this, ViewCompat.getTransitionName(this))

@@ -1,7 +1,6 @@
 package ru.xmn.kotlinstarter.application.di
 
 import android.content.Context
-import com.squareup.moshi.FromJson
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -10,18 +9,18 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import ru.xmn.common.extensions.fromJson
-import ru.xmn.kotlinstarter.services.beer.MapPoint
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
 class NetworkModule {
-    @Provides @Singleton
+    @Provides
+    @Singleton
     fun provideCache(context: Context)
             = Cache(context.cacheDir, 10 * 1024 * 1024.toLong())
 
-    @Provides @Singleton
+    @Provides
+    @Singleton
     fun provideOkHttpClient(cache: Cache): OkHttpClient
             = OkHttpClient()
             .newBuilder()
@@ -31,16 +30,9 @@ class NetworkModule {
             .cache(cache)
             .build()
 
-    @Provides @Singleton
-    fun moshi(): Moshi = Moshi.Builder().add(MapPointAdapter()).build()
-}
-
-class MapPointAdapter {
-    @FromJson
-    fun fromJson(s: String): MapPoint {
-        val result: String = s.replace("\\\"", "\"").replace("\"{", "{").replace("\"}", "}")
-        return Moshi.Builder().build().fromJson<MapPoint>(result)!!
-    }
+    @Provides
+    @Singleton
+    fun moshi(): Moshi = Moshi.Builder().build()
 }
 
 
