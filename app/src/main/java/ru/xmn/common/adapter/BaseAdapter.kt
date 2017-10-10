@@ -8,10 +8,10 @@ import ru.xmn.common.ui.adapter.AutoUpdatableAdapter
 import kotlin.properties.Delegates
 
 
-class BaseAdapter(compare: (Item, Item) -> Boolean) : RecyclerView.Adapter<BaseAdapter.ViewHolder>(), AutoUpdatableAdapter {
+class BaseAdapter : RecyclerView.Adapter<BaseAdapter.ViewHolder>(), AutoUpdatableAdapter {
 
-    val items: List<Item> by Delegates.observable(emptyList()) { _, oldValue, newValue ->
-        autoNotify<Item>(oldValue, newValue, compare)
+    var items: List<Item> by Delegates.observable(emptyList()) { _, oldValue, newValue ->
+        autoNotify<Item>(oldValue, newValue, { item1, item2 -> item1.compare(item2) })
     }
 
     override fun getItemCount(): Int = items.size
@@ -41,5 +41,6 @@ class BaseAdapter(compare: (Item, Item) -> Boolean) : RecyclerView.Adapter<BaseA
     abstract class Item {
         abstract fun bindOn(view: View)
         abstract fun layoutId(): Int
+        abstract fun compare(anotherItem: Item): Boolean
     }
 }
