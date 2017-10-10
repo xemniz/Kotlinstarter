@@ -11,7 +11,7 @@ import kotlin.properties.Delegates
 class BaseAdapter : RecyclerView.Adapter<BaseAdapter.ViewHolder>(), AutoUpdatableAdapter {
 
     var items: List<Item> by Delegates.observable(emptyList()) { _, oldValue, newValue ->
-        autoNotify<Item>(oldValue, newValue, { item1, item2 -> item1.compare(item2) })
+        autoNotify(oldValue, newValue, { item1, item2 -> item1.compare(item2) })
     }
 
     override fun getItemCount(): Int = items.size
@@ -41,6 +41,6 @@ class BaseAdapter : RecyclerView.Adapter<BaseAdapter.ViewHolder>(), AutoUpdatabl
     abstract class Item {
         abstract fun bindOn(view: View)
         abstract fun layoutId(): Int
-        abstract fun compare(anotherItem: Item): Boolean
+        abstract fun compare(anotherItemValue: Any): Boolean
     }
 }

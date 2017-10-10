@@ -11,6 +11,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLSession
 
 @Module
 class NetworkModule {
@@ -28,6 +30,11 @@ class NetworkModule {
             .writeTimeout(5, TimeUnit.MINUTES)
             .readTimeout(5, TimeUnit.MINUTES)
             .cache(cache)
+            .hostnameVerifier(object : HostnameVerifier {
+                override fun verify(hostname: String, session: SSLSession): Boolean {
+                    return true
+                }
+            })
             .build()
 
     @Provides

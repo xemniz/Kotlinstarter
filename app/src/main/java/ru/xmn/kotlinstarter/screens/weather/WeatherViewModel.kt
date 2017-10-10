@@ -17,6 +17,7 @@ class WeatherViewModel : ViewModel() {
     init {
         App.component.weatherInteractorComponent().provideModule(WeatherModule()).build().inject(this)
         weatherInteractor.getValue()
+                .doOnNext { println("spisok $it)") }
                 .map { WeatherState.Success(it) as WeatherState }
                 .startWith(WeatherState.Loading)
                 .onErrorReturn { WeatherState.Error(it) }

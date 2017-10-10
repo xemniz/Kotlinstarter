@@ -4,13 +4,18 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import kotlinx.android.synthetic.main.activity_weather.*
+import kotlinx.android.synthetic.main.item_weather.view.*
 import ru.xmn.common.adapter.BaseAdapter
 import ru.xmn.common.extensions.gone
 import ru.xmn.common.extensions.visible
 import ru.xmn.kotlinstarter.R
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
 
 class WeatherActivity : AppCompatActivity() {
     lateinit var weatherViewModel: WeatherViewModel
@@ -41,10 +46,12 @@ class WeatherActivity : AppCompatActivity() {
         weatherRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@WeatherActivity)
             adapter = BaseAdapter()
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
     }
 
     private fun showValue(value: WeatherData) {
+        supportActionBar?.title = value.city.name
         loading.gone()
         (weatherRecyclerView.adapter as BaseAdapter).items = value.list.map { WeatherItem(it) }
     }
@@ -58,16 +65,19 @@ class WeatherActivity : AppCompatActivity() {
     }
 }
 
-class WeatherItem(val dayWeatherData: DayWeatherData) : BaseAdapter.Item() {
+class WeatherItem(private val dayWeatherData: DayWeatherData) : BaseAdapter.Item() {
+    override fun compare(anotherItemValue: Any) = dayWeatherData.dt == (anotherItemValue as? DayWeatherData)?.dt
 
     override fun layoutId() = R.layout.item_weather
 
     override fun bindOn(view: View) {
-
-    }
-
-    override fun <T : BaseAdapter.Item> compare(anotherItem: T): Boolean {
-        dayWeatherData.dt == anotherItem.dayWeatherData.dt
+        view.apply {
+            dateValue.text = "date: ${SimpleDateFormat("dd.MM.yyyy").format(Date(Timestamp(System.currentTimeMillis()).getTime()))}"
+            dayValue.text = "day: ${dayWeatherData.temp.day}"
+            minValue.text = "min: ${dayWeatherData.temp.min}"
+            maxValue.text = "max: ${dayWeatherData.temp.max}"
+            weatherValue.text = "weather: ${dayWeatherData.weather[0].main}"
+        }
     }
 }
 
