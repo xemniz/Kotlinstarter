@@ -5,9 +5,12 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import ru.xmn.kotlinstarter.application.di.modify
 import ru.xmn.kotlinstarter.application.di.provideRestAdapter
 import javax.inject.Named
 import javax.inject.Singleton
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLSession
 
 @Module
 class WeatherServiceModule {
@@ -19,7 +22,13 @@ class WeatherServiceModule {
     @Singleton
     @Named(NAME)
     fun provideRestAdapterWeather(client: OkHttpClient, moshi: Moshi): Retrofit
-            = provideRestAdapter(client, "https://samples.openweathermap.org/", moshi)
+            = provideRestAdapter(client.modify {
+        it.hostnameVerifier(object : HostnameVerifier {
+            override fun verify(hostname: String, session: SSLSession): Boolean {
+                return true
+            }
+        })
+    }, "https://samples.openweathermap.org/", moshi)
 
     @Provides
     @Singleton
