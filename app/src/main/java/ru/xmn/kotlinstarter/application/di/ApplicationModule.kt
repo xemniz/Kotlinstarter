@@ -4,7 +4,7 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import ru.xmn.kotlinstarter.application.App
-import ru.xmn.kotlinstarter.screens.AbstractComponent
+import ru.xmn.kotlinstarter.features.AbstractComponent
 import javax.inject.Singleton
 
 @Module(subcomponents = arrayOf(AbstractComponent::class))

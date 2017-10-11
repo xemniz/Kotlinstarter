@@ -1,9 +1,8 @@
 package ru.xmn.kotlinstarter.application.di
 
 import dagger.Component
-import ru.xmn.kotlinstarter.screens.AbstractComponent
-import ru.xmn.kotlinstarter.screens.weather.WeatherComponent
-import ru.xmn.kotlinstarter.screens.weather.WeatherModule
+import ru.xmn.kotlinstarter.features.AbstractComponent
+import ru.xmn.kotlinstarter.features.weather.model.WeatherComponent
 import ru.xmn.kotlinstarter.services.weather.WeatherServiceModule
 import javax.inject.Singleton
 

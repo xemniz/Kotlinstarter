@@ -1,4 +1,6 @@
-package ru.xmn.kotlinstarter.screens.weather
+package ru.xmn.kotlinstarter.features.weather.presentation
+
+import ru.xmn.kotlinstarter.features.weather.model.WeatherData
 
 sealed class WeatherState {
     object Loading : WeatherState()

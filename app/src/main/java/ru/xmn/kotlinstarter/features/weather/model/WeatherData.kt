@@ -1,4 +1,4 @@
-package ru.xmn.kotlinstarter.screens.weather
+package ru.xmn.kotlinstarter.features.weather.model
 
 
 data class WeatherData(

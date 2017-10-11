@@ -1,4 +1,4 @@
-package ru.xmn.kotlinstarter.screens
+package ru.xmn.kotlinstarter.features
 
 import android.arch.lifecycle.*
 import android.os.Bundle
