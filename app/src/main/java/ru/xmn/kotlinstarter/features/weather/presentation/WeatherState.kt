@@ -7,7 +7,7 @@ sealed class WeatherState {
     data class Success(val value: WeatherData) : WeatherState()
     data class Error(val error: Throwable) : WeatherState(){
         init {
-            println(error)
+            error.printStackTrace()
         }
     }
 }

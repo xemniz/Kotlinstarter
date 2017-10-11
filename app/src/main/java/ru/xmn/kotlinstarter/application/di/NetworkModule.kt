@@ -30,11 +30,6 @@ class NetworkModule {
             .writeTimeout(5, TimeUnit.MINUTES)
             .readTimeout(5, TimeUnit.MINUTES)
             .cache(cache)
-            .hostnameVerifier(object : HostnameVerifier {
-                override fun verify(hostname: String, session: SSLSession): Boolean {
-                    return true
-                }
-            })
             .build()
 
     @Provides
@@ -51,12 +46,7 @@ fun provideRestAdapter(client: OkHttpClient, url: String, moshi: Moshi): Retrofi
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
 
-fun OkHttpClient.addParameterInterceptor(key: String, value: String): OkHttpClient {
-    return this.newBuilder()
-            .addInterceptor {
-                val url = it.request().url().newBuilder().addQueryParameter(key, value).build()
-                val request = it.request().newBuilder().url(url).build()
-                it.proceed(request)
-            }
+fun OkHttpClient.modify(modifyFunc: (OkHttpClient.Builder) -> OkHttpClient.Builder): OkHttpClient {
+    return modifyFunc(this.newBuilder())
             .build()
 }

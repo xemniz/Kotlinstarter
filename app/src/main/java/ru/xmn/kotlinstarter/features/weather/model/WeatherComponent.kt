@@ -10,6 +10,5 @@ interface WeatherComponent {
     @Subcomponent.Builder
     interface Builder {
         fun build(): WeatherComponent
-
     }
 }
