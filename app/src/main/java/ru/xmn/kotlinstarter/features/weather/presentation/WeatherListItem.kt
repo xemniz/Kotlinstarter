@@ -3,14 +3,14 @@ package ru.xmn.kotlinstarter.features.weather.presentation
 import android.view.View
 import kotlinx.android.synthetic.main.item_weather.view.*
 import org.jetbrains.anko.toast
-import ru.xmn.common.adapter.BaseAdapter
+import ru.xmn.common.adapter.LastAdapter
 import ru.xmn.kotlinstarter.R
 import ru.xmn.kotlinstarter.features.weather.model.DayWeatherData
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WeatherListItem(private val dayWeatherData: DayWeatherData) : BaseAdapter.Item() {
+class WeatherListItem(private val dayWeatherData: DayWeatherData) : LastAdapter.Item() {
     override fun compare(anotherItemValue: Any) = dayWeatherData.dt == (anotherItemValue as? DayWeatherData)?.dt
 
     override fun layoutId() = R.layout.item_weather

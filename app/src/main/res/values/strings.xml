@@ -2,9 +2,9 @@
     <string name="app_name">Kotlin starter</string>
     <string name="title_activity_main">MainActivity</string>
 
-    <string name = "dateValue">date: %1$s</string>
-    <string name = "dayValue">day: %1$f</string>
-    <string name = "minValue">min: %1$f</string>
-    <string name = "maxValue">max: %1$f</string>
-    <string name = "weatherValue">weather: %1$s</string>
+    <string name="dateValue">date: %1$s</string>
+    <string name="dayValue">day: %1$f</string>
+    <string name="minValue">min: %1$f</string>
+    <string name="maxValue">max: %1$f</string>
+    <string name="weatherValue">weather: %1$s</string>
 </resources>

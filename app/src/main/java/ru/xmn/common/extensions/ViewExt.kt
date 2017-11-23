@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.graphics.Rect
 import android.support.v4.view.ViewCompat
 import android.view.View
+import android.view.ViewTreeObserver
 
 fun View.pairSharedTransition(): android.support.v4.util.Pair<View, String> {
     return android.support.v4.util.Pair<View, String>(this, ViewCompat.getTransitionName(this))
@@ -28,9 +29,9 @@ fun View.gone() {
     this.visibility = View.GONE
 }
 
-val Int.dp: Int
+val Int.dpToPx: Int
     get() = (this / Resources.getSystem().displayMetrics.density).toInt()
-val Int.px: Int
+val Int.pxToDp: Int
     get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
 fun View.changeWidth(w: Int){
@@ -43,4 +44,13 @@ fun View.changeHeight(w: Int){
     val layoutParams = this.layoutParams
     layoutParams.height = w
     this.layoutParams = layoutParams
+}
+
+fun View.onGlobalLayout(action: () -> Unit){
+    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        override fun onGlobalLayout() {
+            viewTreeObserver.removeOnGlobalLayoutListener(this)
+            action()
+        }
+    })
 }

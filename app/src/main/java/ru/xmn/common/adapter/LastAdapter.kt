@@ -4,14 +4,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import ru.xmn.common.extensions.inflate
-import ru.xmn.common.ui.adapter.AutoUpdatableAdapter
 import kotlin.properties.Delegates
 
 
-class BaseAdapter : RecyclerView.Adapter<BaseAdapter.ViewHolder>(), AutoUpdatableAdapter {
+class LastAdapter : RecyclerView.Adapter<LastAdapter.ViewHolder>(), AutoUpdatableAdapter {
 
     var items: List<Item> by Delegates.observable(emptyList()) { _, oldValue, newValue ->
-        autoNotify(oldValue, newValue, { item1, item2 -> item1.compare(item2) })
+        autoNotify(oldValue, newValue, compare = { item1, item2 -> item1.compare(item2) })
     }
 
     override fun getItemCount(): Int = items.size
@@ -44,3 +43,19 @@ class BaseAdapter : RecyclerView.Adapter<BaseAdapter.ViewHolder>(), AutoUpdatabl
         abstract fun compare(anotherItemValue: Any): Boolean
     }
 }
+
+var RecyclerView.lastAdapterItems: List<LastAdapter.Item>
+    get() = when {
+        adapter !is LastAdapter -> {
+            adapter = LastAdapter()
+            emptyList()
+        }
+        else -> (this.adapter as LastAdapter).items
+    }
+    set(value) = when {
+        adapter !is LastAdapter -> {
+            adapter = LastAdapter()
+            (this.adapter as LastAdapter).items = value
+        }
+        else -> (this.adapter as LastAdapter).items = value
+    }

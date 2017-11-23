@@ -11,15 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".features.weather.presentation.WeatherActivity"
+            android:name=".features.movies.MoviesActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".features.MainActivity" />
+        <activity android:name=".features.MainActivity"/>
+        <activity android:name=".features.weather.presentation.WeatherActivity">
+        </activity>
     </application>
 
 </manifest>

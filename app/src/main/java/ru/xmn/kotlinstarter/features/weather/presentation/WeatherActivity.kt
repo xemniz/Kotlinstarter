@@ -8,7 +8,7 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_weather.*
 import org.jetbrains.anko.toast
-import ru.xmn.common.adapter.BaseAdapter
+import ru.xmn.common.adapter.LastAdapter
 import ru.xmn.common.extensions.gone
 import ru.xmn.common.extensions.visible
 import ru.xmn.kotlinstarter.R
@@ -42,7 +42,7 @@ class WeatherActivity : AppCompatActivity() {
     fun setupRecyclerView() {
         weatherRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@WeatherActivity)
-            adapter = BaseAdapter()
+            adapter = LastAdapter()
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
     }
@@ -50,7 +50,7 @@ class WeatherActivity : AppCompatActivity() {
     private fun showValue(value: WeatherData) {
         supportActionBar?.title = value.city.name
         loading.gone()
-        (weatherRecyclerView.adapter as BaseAdapter).items = value.list.map { WeatherListItem(it) }
+        (weatherRecyclerView.adapter as LastAdapter).items = value.list.map { WeatherListItem(it) }
     }
 
     private fun showError() {
