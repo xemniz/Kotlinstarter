@@ -26,12 +26,12 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun blurBackForPoster(poster: ImageView, back: ImageView) {
-        val posterBitmap = getBitmapFromView(poster).highlightImage(.8f)
-//        val renderScript = RenderScript.create(poster.context)
-//        val blurredPoster = RSBlurProcessor(renderScript).blur(posterBitmap, 25f, 4)
+        val posterBitmap = getBitmapFromView(poster).highlightImage(.85f)
+        val renderScript = RenderScript.create(poster.context)
+        val blurredPoster = RSBlurProcessor(renderScript).blur(posterBitmap, 70f, 6)
         back.apply {
-            setImageBitmap(posterBitmap)
-            alpha = .4f
+            setImageBitmap(blurredPoster)
+            alpha = .3f
         }
     }
 }

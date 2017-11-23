@@ -39,10 +39,10 @@ fun Bitmap.highlightImage(resizeFactor: Float): Bitmap {
     // setup canvas for painting
     val canvas = Canvas(bmOut)
     // setup default color
-    canvas.drawColor(-0x1, PorterDuff.Mode.CLEAR)
+    canvas.drawColor(0, PorterDuff.Mode.CLEAR)
     // create a blur paint for capturing alpha
     val ptBlur = Paint()
-    ptBlur.maskFilter = BlurMaskFilter(2f, BlurMaskFilter.Blur.NORMAL)
+    ptBlur.maskFilter = BlurMaskFilter(35f, BlurMaskFilter.Blur.NORMAL)
     val offsetXY = IntArray(2)
     // capture alpha into a bitmap
     val bmAlpha = extractAlpha(ptBlur, offsetXY)
