@@ -21,14 +21,11 @@ class WeatherServiceModule {
     @Provides
     @Singleton
     @Named(NAME)
-    fun provideRestAdapterWeather(client: OkHttpClient, moshi: Moshi): Retrofit
-            = provideRestAdapter(client.modify {
-        it.hostnameVerifier(object : HostnameVerifier {
-            override fun verify(hostname: String, session: SSLSession): Boolean {
-                return true
-            }
-        })
-    }, "https://samples.openweathermap.org/", moshi)
+    fun provideRestAdapterWeather(client: OkHttpClient, moshi: Moshi): Retrofit =
+            provideRestAdapter(client.modify {
+                hostnameVerifier { _, _ -> true }
+            },
+                    "https://samples.openweathermap.org/", moshi)
 
     @Provides
     @Singleton

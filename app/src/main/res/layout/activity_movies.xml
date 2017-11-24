@@ -9,14 +9,14 @@
     tools:context="ru.xmn.kotlinstarter.features.movies.MoviesActivity">
 
     <ImageView
-        android:scaleType="centerCrop"
         android:id="@+id/posterBlurBack"
-        android:layout_width="351dp"
-        android:layout_height="512dp"
+        android:layout_width="339dp"
+        android:layout_height="478dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:scaleType="fitXY"

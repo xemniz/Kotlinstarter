@@ -9,7 +9,6 @@ import org.jetbrains.anko.contentView
 import ru.xmn.blur.RSBlurProcessor
 import ru.xmn.common.extensions.alphaPadding
 import ru.xmn.common.extensions.getBitmapFromView
-import ru.xmn.common.extensions.highlightImage
 import ru.xmn.common.extensions.onGlobalLayout
 import ru.xmn.kotlinstarter.R
 
@@ -26,12 +25,12 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun blurBackForPoster(poster: ImageView, back: ImageView) {
-        val posterBitmap = getBitmapFromView(poster).highlightImage(.85f)
+        val posterBitmap = getBitmapFromView(poster).alphaPadding(.8f)
         val renderScript = RenderScript.create(poster.context)
         val blurredPoster = RSBlurProcessor(renderScript).blur(posterBitmap, 70f, 6)
         back.apply {
             setImageBitmap(blurredPoster)
-            alpha = .3f
+            alpha = .35f
         }
     }
 }

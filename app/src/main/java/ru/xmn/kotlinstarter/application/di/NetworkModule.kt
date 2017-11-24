@@ -48,7 +48,7 @@ fun provideRestAdapter(client: OkHttpClient, url: String, moshi: Moshi): Retrofi
 
 fun OkHttpClient.addParameterInterceptor(key: String, value: String): OkHttpClient {
     return modify {
-        it.addInterceptor {
+        addInterceptor {
             val url = it.request().url().newBuilder().addQueryParameter(key, value).build()
             val request = it.request().newBuilder().url(url).build()
             it.proceed(request)
@@ -56,7 +56,4 @@ fun OkHttpClient.addParameterInterceptor(key: String, value: String): OkHttpClie
     }
 }
 
-fun OkHttpClient.modify(modifyFunc: (OkHttpClient.Builder) -> OkHttpClient.Builder): OkHttpClient {
-    return modifyFunc(this.newBuilder())
-            .build()
-}
+fun OkHttpClient.modify(modifyFunc: OkHttpClient.Builder.() -> OkHttpClient.Builder) = newBuilder().modifyFunc().build()!!
