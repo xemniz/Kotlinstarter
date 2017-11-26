@@ -3,6 +3,7 @@ package ru.xmn.kotlinstarter.features.movies
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.google.android.youtube.player.YouTubeStandalonePlayer
 import kotlinx.android.synthetic.main.activity_movie_details.*
 import kotlinx.android.synthetic.main.item_reply.view.*
 import kotlinx.android.synthetic.main.layout_comments.*
@@ -21,6 +22,10 @@ class MovieDetailsActivity : AppCompatActivity() {
         listReviews.adapter = LastAdapter()
         listReviews.lastAdapterItems = provideComments()
         buttonHideArrow.setOnClickListener { goBack() }
+        playTrailerButton.setOnClickListener {
+            startActivity(YouTubeStandalonePlayer.createVideoIntent(this,
+                    YOUTUBE_KEY, "rs7lyEWy36k"));
+        }
         chromeFader = ElasticDragDismissFrameLayout.SystemChromeFader(this)
 
         if (savedInstanceState == null)
