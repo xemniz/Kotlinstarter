@@ -6,26 +6,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="ru.xmn.kotlinstarter.features.movies.MoviesActivity">
 
     <ImageView
         android:id="@+id/posterBlurBack"
-        android:layout_width="339dp"
-        android:layout_height="478dp"
-        android:scaleType="centerCrop"
+        android:layout_width="304dp"
+        android:layout_height="479dp"
+        android:scaleType="fitXY"
+        android:transitionName="POSTER_BACK_TRANSITION_NAME"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <ImageView
-        android:scaleType="fitXY"
-        android:id="@+id/poster"
-        android:layout_width="234dp"
-        android:layout_height="350dp"
-        android:src="@drawable/poster"
+    <FrameLayout
+        android:id="@+id/emptyForTransition"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        android:transitionName="CONTAINER_TRANSITION_NAME"
+        app:layout_constraintBottom_toBottomOf="@id/posterCard"
+        app:layout_constraintEnd_toEndOf="@id/posterCard"
+        app:layout_constraintStart_toStartOf="@id/posterCard"
+        app:layout_constraintTop_toTopOf="@id/posterCard"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/posterCard"
+        android:layout_width="180dp"
+        android:layout_height="258dp"
+        android:clipChildren="true"
+        android:transitionName="POSTER_TRANSITION_NAME"
         app1:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="4dp"
+        app:cardPreventCornerOverlap="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/poster"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/poster"/>
+
+        <ImageButton
+            android:id="@+id/playTrailerButton"
+            android:transitionName="TRAILER_BUTTON_TRANSITION_NAME"
+            android:layout_gravity="end|bottom"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/play_button_bg"
+            android:src="@drawable/ic_play_arrow_black_24dp"
+            android:tint="@android:color/white"
+            android:layout_margin="8dp"/>
+    </android.support.v7.widget.CardView>
+
+
+
+
 </android.support.constraint.ConstraintLayout>

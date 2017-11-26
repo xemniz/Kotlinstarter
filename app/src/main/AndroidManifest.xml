@@ -13,7 +13,7 @@
         <activity
             android:name=".features.movies.MoviesActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/MovieTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -22,6 +22,10 @@
         </activity>
         <activity android:name=".features.MainActivity"/>
         <activity android:name=".features.weather.presentation.WeatherActivity">
+        </activity>
+        <activity
+            android:name=".features.movies.MovieDetailsActivity"
+            android:theme="@style/MovieTheme.Translucent">
         </activity>
     </application>
 

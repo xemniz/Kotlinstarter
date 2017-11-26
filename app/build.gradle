@@ -9,7 +9,7 @@ android {
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "ru.xmn.kotlinstarter"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -52,6 +52,7 @@ dependencies {
     implementation "com.android.support:design:$supportLib"
     implementation "com.android.support:transition:$supportLib"
     implementation "com.android.support:support-dynamic-animation:$supportLib"
+    implementation "com.android.support:transition:$supportLib"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.google.firebase:firebase-core:11.2.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
