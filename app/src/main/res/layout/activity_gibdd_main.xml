@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ru.xmn.kotlinstarter.features.gibdd.screens.main.GibddMainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/car_reg_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/car_reg_description"
+            android:layout_marginBottom="4dp"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/car_reg_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="O222OO22"
+            android:layout_marginBottom="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:id="@+id/car_doc_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/car_doc_description"
+            android:layout_marginBottom="4dp"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/car_doc_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="22OO223344"
+            android:layout_marginBottom="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:id="@+id/driving_license_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/driving_license_description"
+            android:layout_marginBottom="4dp"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/driving_license_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="22OO223344"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"/>
+    </LinearLayout>
+
+
+</LinearLayout>

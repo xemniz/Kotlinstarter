@@ -31,5 +31,14 @@ fun ImageView.loadUrl(url: String, loadingView: View? = null, transformations: L
         }
     })
             .into(this)
+}
 
+fun ImageView.loadUrl(res: Int, transformations: List<Transformation<Bitmap>> = emptyList()) {
+    val builder = Glide.with(context)
+            .load(res)
+
+    if (transformations.isNotEmpty())
+        builder.apply(RequestOptions().transform(MultiTransformation(transformations)))
+
+    builder.into(this)
 }

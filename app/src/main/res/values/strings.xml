@@ -7,4 +7,11 @@
     <string name="minValue">min: %1$f</string>
     <string name="maxValue">max: %1$f</string>
     <string name="weatherValue">weather: %1$s</string>
+    <string name="next">далее</string>
+    <string name="skip">пропустить</string>
+    <string name="title_activity_gibdd_main">GibddMainActivity</string>
+    <string name="car_reg_description">Номер авто:</string>
+    <string name="car_doc_description">Номер ТО</string>
+    <string name="driving_license_description">Номер водительского удостоверения</string>
+    <string name="document_toolbar_title">Документы</string>
 </resources>

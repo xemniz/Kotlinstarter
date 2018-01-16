@@ -3,6 +3,7 @@
           package="ru.xmn.kotlinstarter">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".application.App"
         android:allowBackup="true"
@@ -15,11 +16,6 @@
             android:name=".features.movies.MoviesActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/MovieTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".features.MainActivity"/>
         <activity android:name=".features.weather.presentation.WeatherActivity">
@@ -27,6 +23,20 @@
         <activity
             android:name=".features.movies.MovieDetailsActivity"
             android:theme="@style/MovieTheme.Translucent">
+        </activity>
+        <activity
+            android:name=".features.gibdd.screens.initial.GibddInitialActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".features.gibdd.screens.main.GibddMainActivity"
+            android:label="@string/title_activity_gibdd_main"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 
