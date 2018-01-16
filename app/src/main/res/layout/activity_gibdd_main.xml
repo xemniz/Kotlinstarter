@@ -14,7 +14,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,51 +26,51 @@
             android:id="@+id/car_reg_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/car_reg_description"
             android:layout_marginBottom="4dp"
+            android:text="@string/car_reg_description"
             android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/car_reg_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="O222OO22"
             android:layout_marginBottom="8dp"
             android:textColor="@android:color/black"
-            android:textSize="24sp"/>
+            android:textSize="24sp"
+            tools:text="O222OO22"/>
 
         <TextView
             android:id="@+id/car_doc_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/car_doc_description"
             android:layout_marginBottom="4dp"
+            android:text="@string/car_doc_description"
             android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/car_doc_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="22OO223344"
             android:layout_marginBottom="8dp"
             android:textColor="@android:color/black"
-            android:textSize="24sp"/>
+            android:textSize="24sp"
+            tools:text="22OO223344"/>
 
         <TextView
             android:id="@+id/driving_license_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/driving_license_description"
             android:layout_marginBottom="4dp"
+            android:text="@string/driving_license_description"
             android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/driving_license_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="22OO223344"
             android:textColor="@android:color/black"
-            android:textSize="24sp"/>
+            android:textSize="24sp"
+            tools:text="22OO223344"/>
     </LinearLayout>
 
 
