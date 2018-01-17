@@ -14,4 +14,5 @@
     <string name="car_doc_description">Номер ТО</string>
     <string name="driving_license_description">Номер водительского удостоверения</string>
     <string name="document_toolbar_title">Документы</string>
+    <string name="no_initial_data">Вы не ввели никаких данных</string>
 </resources>

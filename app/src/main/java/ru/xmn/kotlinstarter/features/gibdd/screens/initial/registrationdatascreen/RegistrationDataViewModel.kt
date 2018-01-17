@@ -1,13 +1,13 @@
-package ru.xmn.kotlinstarter.features.gibdd.screens.initial.registration_data_screen
+package ru.xmn.kotlinstarter.features.gibdd.screens.initial.registrationdatascreen
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import ru.xmn.kotlinstarter.features.gibdd.screens.initial.registration_data_screen.dependencies.InitialScreenDependencies
+import ru.xmn.kotlinstarter.features.gibdd.screens.initial.registrationdatascreen.dependencies.InitialScreenDependencies
 
 class RegistrationDataViewModel(
         val textLength: Int,
         val verify: (String) -> Boolean,
-        val saveStrategy: InitialScreenDependencies.RegistrationNumberDao
+        val saveStrategy: InitialScreenDependencies.SaveNumberStrategy
 ) : ViewModel() {
     val verifiedState: MutableLiveData<VerifiedState> = MutableLiveData()
 

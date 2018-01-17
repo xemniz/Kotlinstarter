@@ -1,6 +1,8 @@
 package ru.xmn.kotlinstarter.features.gibdd.screens.initial
 
 import android.app.AlertDialog
+import android.arch.lifecycle.ViewModel
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
@@ -19,18 +21,25 @@ import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
 import ru.xmn.common.extensions.*
-import ru.xmn.kotlinstarter.features.gibdd.screens.initial.registration_data_screen.dependencies.InitialScreenDependencies
-import ru.xmn.kotlinstarter.features.gibdd.screens.initial.registration_data_screen.RegistrationDataViewModel
-import ru.xmn.kotlinstarter.features.gibdd.screens.initial.registration_data_screen.VerifiedState
+import ru.xmn.kotlinstarter.features.gibdd.screens.initial.registrationdatascreen.dependencies.InitialScreenDependencies
+import ru.xmn.kotlinstarter.features.gibdd.screens.initial.registrationdatascreen.RegistrationDataViewModel
+import ru.xmn.kotlinstarter.features.gibdd.screens.initial.registrationdatascreen.VerifiedState
 import ru.xmn.kotlinstarter.features.gibdd.screens.main.GibddMainActivity
 
 
+
 class GibddInitialActivity : AppCompatActivity() {
-    val initialNavigation: InitialNavigation by viewModelProvider()
+    private var initialFinished by bindSharedPreference(this, "GibddInitialActivity.initialFinished", false)
+    private val initialNavigation: InitialNavigation by viewModelProvider()
+    private val componentHolder: ComponentHolder by viewModelProvider()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gibdd_initial)
+
+        if (initialFinished)
+            gotoMainScreen()
+
         setupViewModel()
     }
 
@@ -45,17 +54,20 @@ class GibddInitialActivity : AppCompatActivity() {
                 ScreenState.CarReg -> {
                     inflateRegistrationDataScreen(
                             R.drawable.car_reg,
-                            App.component.gibddComponent().build().carRegDependencies())
+                            componentHolder.gibddComponent.carRegDependencies())
+                    { initialNavigation.goDrivingLicenseScreen() }
                 }
                 ScreenState.CarDocs -> {
                     inflateRegistrationDataScreen(
                             R.drawable.car_doc,
-                            App.component.gibddComponent().build().carDocsDependencies())
+                            componentHolder.gibddComponent.carDocsDependencies())
+                    { initialNavigation.goDrivingLicenseScreen() }
                 }
                 ScreenState.DrivingLicense -> {
                     inflateRegistrationDataScreen(
                             R.drawable.car_doc,
-                            App.component.gibddComponent().build().drivingLicenseDependencies())
+                            componentHolder.gibddComponent.drivingLicenseDependencies())
+                    { this@GibddInitialActivity.gotoMainScreen() }
                 }
                 ScreenState.MainScreen -> {
                     gotoMainScreen()
@@ -64,7 +76,7 @@ class GibddInitialActivity : AppCompatActivity() {
         }
     }
 
-    private fun inflateRegistrationDataScreen(imageRes: Int, dependencies: InitialScreenDependencies) {
+    private fun inflateRegistrationDataScreen(imageRes: Int, dependencies: InitialScreenDependencies, skipAction: (DialogInterface) -> Unit) {
         inflateScreen(R.layout.layout_registration_data_screen) {
             val registrationViewModel = viewModelForRegistrationDataScreen(this, dependencies)
 
@@ -85,7 +97,7 @@ class GibddInitialActivity : AppCompatActivity() {
                     }
 
                 })
-                setText(dependencies.registrationNumberDao.get())
+                setText(dependencies.saveNumberStrategy.get())
                 requestFocus()
                 showKeyboard()
             }
@@ -100,7 +112,7 @@ class GibddInitialActivity : AppCompatActivity() {
             skip.setOnClickListener {
                 var dialog: AlertDialog? = null
                 dialog = alert("Пропустить", "Хотите пропустить ввод данных?") {
-                    yesButton { gotoMainScreen() }
+                    yesButton(skipAction)
                     noButton { dialog?.cancel() }
                 }.show()
             }
@@ -121,7 +133,7 @@ class GibddInitialActivity : AppCompatActivity() {
             RegistrationDataViewModel(
                     dependencies.textLength,
                     dependencies.verify,
-                    dependencies.registrationNumberDao
+                    dependencies.saveNumberStrategy
             )
         }
         registrationViewModel.verifiedState.observeNonNull(this) {
@@ -145,7 +157,10 @@ class GibddInitialActivity : AppCompatActivity() {
     }
 
     private fun gotoMainScreen() {
+        initialFinished = true
+        componentHolder.gibddComponent.finesInitialDataUseCase().persistInitialData()
         startActivity<GibddMainActivity>()
+        finish()
     }
 
     private fun inflateScreen(@LayoutRes layoutRes: Int, init: View.() -> Unit = {}): View {
@@ -160,6 +175,10 @@ class GibddInitialActivity : AppCompatActivity() {
         if (!initialNavigation.goBack())
             super.onBackPressed()
     }
+}
+
+class ComponentHolder : ViewModel(){
+    val gibddComponent = App.component.gibddComponent().build()
 }
 
 

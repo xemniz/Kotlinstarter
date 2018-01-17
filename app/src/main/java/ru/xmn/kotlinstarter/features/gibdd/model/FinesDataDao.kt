@@ -19,5 +19,5 @@ class FinesDataDao(context: Context) {
     fun saveCarReg(number: String) {
         carReg = number
     }
-
 }
+

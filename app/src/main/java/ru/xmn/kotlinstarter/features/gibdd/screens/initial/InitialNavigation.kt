@@ -25,12 +25,12 @@ class InitialNavigation : ViewModel() {
     }
 
     fun goBack(): Boolean {
-        if (currentScreenIndex == 0)
-            return false
-        else {
+        return if (currentScreenIndex == 0) {
+            false
+        } else {
             currentScreenIndex--
             sendCurrentScreen()
-            return true
+            true
         }
     }
 
@@ -45,13 +45,16 @@ class InitialNavigation : ViewModel() {
 
         screenState.value = screens[currentScreenIndex]
     }
+
+    fun goDrivingLicenseScreen() {
+        currentScreenIndex = screens.indexOf(ScreenState.DrivingLicense)
+        sendCurrentScreen()
+    }
 }
 
 sealed class ScreenState {
     object Start : ScreenState()
-    object CarReg : ScreenState(){
-        fun key(): String = ""
-    }
+    object CarReg : ScreenState()
     object CarDocs : ScreenState()
     object DrivingLicense : ScreenState()
     object MainScreen : ScreenState()

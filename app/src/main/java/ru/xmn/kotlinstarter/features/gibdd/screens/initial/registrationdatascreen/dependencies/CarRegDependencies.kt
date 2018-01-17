@@ -1,8 +1,8 @@
-package ru.xmn.kotlinstarter.features.gibdd.screens.initial.registration_data_screen.dependencies
+package ru.xmn.kotlinstarter.features.gibdd.screens.initial.registrationdatascreen.dependencies
 
-import ru.xmn.kotlinstarter.features.gibdd.model.FinesDataDao
+import ru.xmn.kotlinstarter.features.gibdd.model.FinesInitialDataUseCase
 
-class CarRegDependencies(finesDataDao: FinesDataDao) : InitialScreenDependencies {
+class CarRegDependencies(finesDataDao: FinesInitialDataUseCase) : InitialScreenDependencies {
     override val descriptionText = "Укажите регистрационный номер ТС"
     override val hintText = "A777AA77"
     override val uniqueKey = "CarRegDependencies"
@@ -10,7 +10,7 @@ class CarRegDependencies(finesDataDao: FinesDataDao) : InitialScreenDependencies
     override val verify: (String) -> Boolean = {
         it.matches("$RUSSIAN_ENGLISH_LETTERS_PATTERN\\d{3}$RUSSIAN_ENGLISH_LETTERS_PATTERN{2}\\d{2}".toRegex())
     }
-    override val registrationNumberDao: InitialScreenDependencies.RegistrationNumberDao = object: InitialScreenDependencies.RegistrationNumberDao {
+    override val saveNumberStrategy: InitialScreenDependencies.SaveNumberStrategy = object: InitialScreenDependencies.SaveNumberStrategy {
         override fun save(text: String) {
              finesDataDao.saveCarReg(text)
         }

@@ -1,4 +1,4 @@
-package ru.xmn.kotlinstarter.features.gibdd.screens.initial.registration_data_screen
+package ru.xmn.kotlinstarter.features.gibdd.screens.initial.registrationdatascreen
 
 sealed class VerifiedState {
     object ShortText : VerifiedState()

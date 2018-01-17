@@ -4,13 +4,15 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.Subcomponent
+import ru.xmn.kotlinstarter.application.di.scopes.ActivityScope
 import ru.xmn.kotlinstarter.features.gibdd.model.FinesDataDao
-import ru.xmn.kotlinstarter.features.gibdd.screens.initial.registration_data_screen.dependencies.CarDocsDependencies
-import ru.xmn.kotlinstarter.features.gibdd.screens.initial.registration_data_screen.dependencies.CarRegDependencies
-import ru.xmn.kotlinstarter.features.gibdd.screens.initial.registration_data_screen.dependencies.DrivingLicenseDependencies
+import ru.xmn.kotlinstarter.features.gibdd.model.FinesInitialDataUseCase
+import ru.xmn.kotlinstarter.features.gibdd.screens.initial.registrationdatascreen.dependencies.CarDocsDependencies
+import ru.xmn.kotlinstarter.features.gibdd.screens.initial.registrationdatascreen.dependencies.CarRegDependencies
+import ru.xmn.kotlinstarter.features.gibdd.screens.initial.registrationdatascreen.dependencies.DrivingLicenseDependencies
 import ru.xmn.kotlinstarter.features.gibdd.screens.main.GibddMainViewModel
 
-
+@ActivityScope
 @Subcomponent(modules = arrayOf(GibddInitialModule::class))
 interface GibddComponent {
     @Subcomponent.Builder
@@ -19,6 +21,8 @@ interface GibddComponent {
     }
 
     fun inject(gibddMainViewModel: GibddMainViewModel)
+
+    fun finesInitialDataUseCase(): FinesInitialDataUseCase
 
     fun drivingLicenseDependencies(): DrivingLicenseDependencies
     fun carDocsDependencies(): CarDocsDependencies
@@ -33,18 +37,24 @@ class GibddInitialModule {
     }
 
     @Provides
-    fun drivingLicenseDependencies(finesDataDao: FinesDataDao): DrivingLicenseDependencies {
-        return DrivingLicenseDependencies(finesDataDao)
+    @ActivityScope
+    fun finesInitialDataUseCase(finesDataDao: FinesDataDao): FinesInitialDataUseCase {
+        return FinesInitialDataUseCase(finesDataDao)
     }
 
     @Provides
-    fun carDocsDependencies(finesDataDao: FinesDataDao): CarDocsDependencies {
-        return CarDocsDependencies(finesDataDao)
+    fun drivingLicenseDependencies(finesInitialDataUseCase: FinesInitialDataUseCase): DrivingLicenseDependencies {
+        return DrivingLicenseDependencies(finesInitialDataUseCase)
     }
 
     @Provides
-    fun carRegDependencies(finesDataDao: FinesDataDao): CarRegDependencies {
-        return CarRegDependencies(finesDataDao)
+    fun carDocsDependencies(finesInitialDataUseCase: FinesInitialDataUseCase): CarDocsDependencies {
+        return CarDocsDependencies(finesInitialDataUseCase)
+    }
+
+    @Provides
+    fun carRegDependencies(finesInitialDataUseCase: FinesInitialDataUseCase): CarRegDependencies {
+        return CarRegDependencies(finesInitialDataUseCase)
     }
 }
 

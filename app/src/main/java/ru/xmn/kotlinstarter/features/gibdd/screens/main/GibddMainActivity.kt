@@ -5,7 +5,9 @@ import android.arch.lifecycle.ViewModel
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_gibdd_main.*
+import ru.xmn.common.extensions.gone
 import ru.xmn.common.extensions.viewModelProvider
+import ru.xmn.common.extensions.visible
 import ru.xmn.common.observeNonNull
 import ru.xmn.kotlinstarter.R
 import ru.xmn.kotlinstarter.application.App
@@ -20,9 +22,25 @@ class GibddMainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.title = getString(R.string.document_toolbar_title)
         gibddMainViewModel.gibddMainScreen.observeNonNull(this) {
-            driving_license_number.text = it.drivingLicense
-            car_doc_number.text = it.carDocs
-            car_reg_number.text = it.carReg
+            if (it.carDocs.isNotEmpty() && it.carReg.isNotEmpty()) {
+                car_doc_number.text = it.carDocs
+                car_reg_number.text = it.carReg
+            } else {
+                car_doc_number.gone()
+                car_doc_description.gone()
+                car_reg_number.gone()
+                car_reg_description.gone()
+            }
+
+            if (it.drivingLicense.isNotEmpty())
+                driving_license_number.text = it.drivingLicense
+            else {
+                driving_license_number.gone()
+                driving_license_description.gone()
+            }
+
+            if (it.carDocs.isEmpty() && it.carReg.isEmpty() && it.drivingLicense.isEmpty())
+                empty.visible()
         }
     }
 
