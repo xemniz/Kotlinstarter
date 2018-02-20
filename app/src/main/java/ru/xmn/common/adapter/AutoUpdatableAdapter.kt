@@ -11,16 +11,17 @@ interface AutoUpdatableAdapter {
             new: List<T>,
             onInsertedAction: (Int, Int) -> Unit = { _, _ -> },
             changePayload: (Int, Int) -> Any? = { _, _ -> null},
-            compare: (T, T) -> Boolean
+            sameItem: (T, T) -> Boolean,
+            sameContent: (T, T) -> Boolean
     ) {
         val diff = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
 
             override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                return compare(old[oldItemPosition], new[newItemPosition])
+                return sameItem(old[oldItemPosition], new[newItemPosition])
             }
 
             override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                return old[oldItemPosition] == new[newItemPosition]
+                return sameContent(old[oldItemPosition], new[newItemPosition])
             }
 
             override fun getOldListSize() = old.size

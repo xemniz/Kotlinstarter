@@ -9,8 +9,16 @@ import kotlin.properties.Delegates
 
 class LastAdapter : RecyclerView.Adapter<LastAdapter.ViewHolder>(), AutoUpdatableAdapter {
 
-    var items: List<Item> by Delegates.observable(emptyList()) { _, oldValue, newValue ->
-        autoNotify(oldValue, newValue, compare = { item1, item2 -> item1.compare(item2) })
+    var items: List<Item<*>> by Delegates.observable(emptyList()) { _, oldValue, newValue ->
+        autoNotify(
+                oldValue,
+                newValue,
+                sameItem = { item1, item2 ->
+                    item1.sameItem(item2)
+                },
+                sameContent = { item1, item2 ->
+                    item1.sameContent(item2)
+                })
     }
 
     override fun getItemCount(): Int = items.size
@@ -29,33 +37,65 @@ class LastAdapter : RecyclerView.Adapter<LastAdapter.ViewHolder>(), AutoUpdatabl
 
     private fun getLayoutIdForPosition(position: Int) = getInstanceForPosition(position).layoutId()
 
-    private fun getInstanceForPosition(position: Int): Item = items[position]
+    private fun getInstanceForPosition(position: Int): Item<*> = items[position]
 
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(instanceForPosition: Item) {
-            instanceForPosition.bindOn(view)
-        }
+    override fun onViewRecycled(holder: ViewHolder?) {
+        super.onViewRecycled(holder)
+        (holder as ViewHolder).recycle()
     }
 
-    abstract class Item {
-        abstract fun bindOn(view: View)
-        abstract fun layoutId(): Int
-        abstract fun compare(anotherItemValue: Any): Boolean
+    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view), ScopeOwner {
+        private var scope: Scope? = null
+
+        override fun setScope(scope: Scope) {
+            this.scope = scope
+        }
+
+        fun bind(instanceForPosition: Item<*>) {
+            recycle()
+            instanceForPosition.bindOn(view, this)
+        }
+
+
+        fun recycle() {
+            scope?.let {
+                it.onClear()
+                scope = null
+            }
+        }
+
+    }
+
+    interface ScopeOwner {
+        fun setScope(scope: Scope)
+    }
+
+
+    interface Scope {
+        fun onClear()
+    }
+
+    interface Item<out T> {
+        val value: T
+        fun bindOn(view: View, scopeOwner: ScopeOwner)
+        fun layoutId(): Int
+        fun sameItem(anotherItem: Item<*>): Boolean
+        fun sameContent(anotherItem: Item<*>): Boolean = value == anotherItem.value
     }
 }
 
-var RecyclerView.lastAdapterItems: List<LastAdapter.Item>
+var RecyclerView.lastAdapterItems
     get() = when {
-        adapter !is LastAdapter -> {
-            adapter = LastAdapter()
+        this.adapter !is LastAdapter -> {
+            this.adapter = LastAdapter()
             emptyList()
         }
         else -> (this.adapter as LastAdapter).items
     }
-    set(value) = when {
-        adapter !is LastAdapter -> {
-            adapter = LastAdapter()
-            (this.adapter as LastAdapter).items = value
+    set(items) = when {
+        this.adapter !is LastAdapter -> {
+            this.adapter = LastAdapter()
+            (this.adapter as LastAdapter).items = items
         }
-        else -> (this.adapter as LastAdapter).items = value
+        else -> (this.adapter as LastAdapter).items = items
     }

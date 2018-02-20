@@ -4,10 +4,10 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import ru.xmn.kotlinstarter.application.App
-import ru.xmn.kotlinstarter.features.AbstractComponent
+import ru.xmn.kotlinstarter.features.mamsy.domain.WeatherComponent
 import javax.inject.Singleton
 
-@Module(subcomponents = arrayOf(AbstractComponent::class))
+@Module(subcomponents = arrayOf(WeatherComponent::class))
 class ApplicationModule(private val app: App) {
     @Provides
     @Singleton

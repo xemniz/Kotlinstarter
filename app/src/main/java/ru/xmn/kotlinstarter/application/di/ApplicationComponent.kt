@@ -1,21 +1,17 @@
 package ru.xmn.kotlinstarter.application.di
 
 import dagger.Component
-import ru.xmn.kotlinstarter.features.AbstractComponent
-import ru.xmn.kotlinstarter.features.gibdd.screens.initial.GibddComponent
-import ru.xmn.kotlinstarter.features.weather.model.WeatherComponent
-import ru.xmn.kotlinstarter.services.weather.WeatherServiceModule
+import ru.xmn.kotlinstarter.features.mamsy.dataaccess.WeatherNetworkModule
+import ru.xmn.kotlinstarter.features.mamsy.domain.WeatherComponent
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = arrayOf(
         ApplicationModule::class,
         NetworkModule::class,
-        WeatherServiceModule::class
+        WeatherNetworkModule::class
 ))
 interface ApplicationComponent {
-    fun abstractInteractorComponent(): AbstractComponent.Builder
-    fun weatherInteractorComponent(): WeatherComponent.Builder
-    fun gibddComponent(): GibddComponent.Builder
+    fun weatherComponent(): WeatherComponent.Builder
 }
 
